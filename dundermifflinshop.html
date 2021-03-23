@@ -10,6 +10,7 @@
 <style>
 	/*body and main headers*/
 	#shop {
+		font-weight:bold;
 		color:#15344c;
 		font-family:futura;
 		font-size:50px;
@@ -81,7 +82,7 @@
 	}
 	
 /*buttons*/
-	button {
+	.card button {	
 		border: none;
 		outline: 0;
 		padding: 12px;
@@ -90,26 +91,36 @@
 		text-align: center;
 		cursor: pointer;
 		font-size:18px;
-	}
-	
-	button:hover {
-		opacity: 0.7;
-	}
-	
-	.card button {
 		width:100%;
 		position:relative;
 	}
 	
+	.card button:hover {
+		opacity: 0.7;
+	}
+
 	#buttonwrap {
 		text-align:center;
 		margin-left:auto;
 		margin-right:auto;
 	}
-	.viewCart button {
-		align-content:center;
+	.viewCart {
+		border: 1px solid #c8d5e5;
+		border-radius: 10px;
+		display: inline-block;
+		text-decoration: none;
+		padding: 15px 20px;
+		margin-left: 20px;
+		transition: all 200ms ease-in-out;
+		background-color: #15344c;
+		color: white;
 		margin-left:auto;
 		margin-right:auto;
+		margin-top:10px;
+	}
+	.viewCart:hover {
+		background-color: #c8d5e5;
+		cursor:pointer;
 	}
 	
 /*swal*/
@@ -119,6 +130,8 @@
 		display:block;
 		color:grey;
 		text-align:center;
+		margin-left:auto;
+		margin-right:auto;
 	}
 	.swal-title {
 		font-family:arial;
@@ -216,8 +229,8 @@
 	<!---display shop items--->
 	<div id="shop">SHOP</div>
 	<div id="buttonwrap"><button class="viewCart" onclick="viewCart();">View Shopping Cart</button></div>
-	
-	
+	<br>
+	<hr style="width:850px">
 	<div class="shop-container">
 		
 		<!---paper products--->
@@ -279,13 +292,7 @@
 			});
 		}
 			
-		function clearCart() {
-			alert("hello");
-			for (i=0;i<products.length;i++) {
-				products[i].quan = 0;
-			}
-			cart.close();
-		}
+		
 		
 		/*view shopping cart*/
 		function viewCart() {
@@ -306,18 +313,20 @@
 			}
 			str += "</table><br>";
 			str += "<strong>Subtotal:</strong> $" + subtotal.toFixed(2);
-			str += "<br><br><button type='button' id='clearcart'>Clear Cart</button>"
+			str += "<br><br><button type='button' id = 'clear' onclick='window.close()'>Clear Cart</button>";
+			str += "&nbsp; &nbsp;";
+			str += `<button type='button' id = 'purchase' onclick='alert("Purchase Completed!");window.close();'>Purchase</button>`;
 			cart = window.open("","","width=500,height=300");
 			cart.document.write("<title>Shopping Cart</title>");
 			cart.document.write(str);
 			
-			window.onlaod() {
-				var b = document.getElementById("clearcart");
-				b.addEventListener("click",function(){
-					clearCart();
-				});
-			}	
+			cart.onunload=function(){
+				for(i=0;i<products.length;i++) {
+					products[i].quan = 0;
+				}
+			}
 		}
+		
 		
 
 	</script>
